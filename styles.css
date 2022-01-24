@@ -1,0 +1,93 @@
+.body {
+  background: #e5e5e5;
+  margin-top: 0px;
+}
+.main-flex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5%;
+}
+
+.code-img {
+  width: 320px;
+  height: 160px;
+  left: 800px;
+  top: 205px;
+  border-radius: 16px;
+}
+.quiz-title1 {
+  width: 100px;
+  height: 32px;
+  left: 910px;
+  top: 389px;
+
+  font-family: Segoe UI;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 32px;
+  /* identical to box height, or 133% */
+
+  /* Typography/Primary */
+
+  color: #1b2a4e;
+}
+
+.quiz-quantities-container {
+  display: flex;
+  flex-direction: column;
+
+  /* Backgrond/Default */
+
+  background: #f6f6f8;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 8px 0px;
+}
+.questions-No {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 32px;
+
+  /* Backgrond/Default */
+
+  background: #f6f6f8;
+  border-radius: 8px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 8px 0px;
+}
+.quizzed-students-No {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 290px;
+  height: 32px;
+  left: 0px;
+  top: 40px;
+
+  /* Backgrond/Default */
+
+  background: #f6f6f8;
+  border-radius: 8px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 8px 0px;
+}
