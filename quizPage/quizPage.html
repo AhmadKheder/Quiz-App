@@ -25,22 +25,55 @@
             laudantium cumque, veritatis quo!
           </p>
         </div>
+
         <div class="answer-option">
-          <input type="radio" name="Answer1" id="option1" value="dddd" />
+          <input
+            onchange="answerHandler()"
+            type="radio"
+            name="Answer"
+            id="option1"
+            value="dddd"
+          />
           <label id="option1-label" for="Answer1"></label>
         </div>
         <div class="answer-option">
-          <input type="radio" name="Answer2" id="option2" value="bbb" />
+          <input
+            onchange="answerHandler()"
+            type="radio"
+            name="Answer"
+            id="option2"
+          />
           <label id="option2-label" for="Answer2"></label>
         </div>
         <div class="answer-option">
-          <input type="radio" name="Answer3" id="option3" value="aaaa" />
+          <input
+            onchange="answerHandler()"
+            type="radio"
+            name="Answer"
+            id="option3"
+          />
           <label id="option3-label" for="Answer3"></label>
         </div>
         <div class="answer-option">
-          <input type="radio" name="Answer4" id="option4" value="ccc" />
+          <input
+            onchange="answerHandler()"
+            type="radio"
+            name="Answer"
+            id="option4"
+          />
 
           <label id="option4-label" for="Answer4"></label>
+        </div>
+        <div class="answer-option">
+          <textarea
+            placeholder="Type your answer..."
+            class="txtArea"
+            name="Answer"
+            id="txtArea"
+            cols="30"
+            rows="10"
+          >
+          </textarea>
         </div>
       </div>
     </main>

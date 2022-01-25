@@ -50,58 +50,154 @@ const questions = [
     },
     rightAnswers: [this.option1, this.option3],
   },
-];
+  {
+    question: "Text Area Question?",
+    qeustionCategory: "textAreaQ",
 
+    rightAnswers: ["Hello World"],
+  },
+];
+// All Right Answers
 const rightAnswers = {
   qeustion1: [questions[0].options.option1],
   qeustion2: [questions[1].options.option2],
   qeustion3: [questions[2].options.option1, questions[2].options.option2],
   qeustion4: [questions[3].options.option1, questions[3].options.option3],
+  qeustion5: [questions[4].rightAnswers],
 };
-
+// Target Each Single Element
 const question = document.getElementById("question");
 const option1 = document.getElementById("option1-label");
 const option2 = document.getElementById("option2-label");
 const option3 = document.getElementById("option3-label");
 const option4 = document.getElementById("option4-label");
 
+const inputOption1 = document.getElementById("option1");
+const inputOption2 = document.getElementById("option2");
+const inputOption3 = document.getElementById("option3");
+const inputOption4 = document.getElementById("option4");
+const txtArea = document.getElementById("txtArea");
 const allOptions = document.querySelectorAll("input");
 
 const nextBtn = document.querySelector("#next-btn");
-
-let studentAnswer = [];
+// Hide and Display Questions Contenet
+const displayContentSwitcher = () => {
+  if (txtArea.style.display == "none") {
+    txtArea.style.display = "flex";
+    inputOption1.style.display = "none";
+    inputOption2.style.display = "none";
+    inputOption3.style.display = "none";
+    inputOption4.style.display = "none";
+    option1.style.display = "none";
+    option2.style.display = "none";
+    option3.style.display = "none";
+    option4.style.display = "none";
+  } else {
+    txtArea.style.display = "none";
+    inputOption1.style.display = "flex";
+    inputOption2.style.display = "flex";
+    inputOption3.style.display = "flex";
+    inputOption4.style.display = "flex";
+    option1.style.display = "flex";
+    option2.style.display = "flex";
+    option3.style.display = "flex";
+    option4.style.display = "flex";
+  }
+};
 
 // change question content
 const htmlTemplate = (questionIdx) => {
   question.innerText = questionIdx.question;
-  option1.innerText = questionIdx.options.option1;
-  option2.innerText = questionIdx.options.option2;
-  option3.innerText = questionIdx.options.option3;
-  option4.innerText = questionIdx.options.option4;
-};
+  if (questionIdx.options) {
+    option1.innerText = questionIdx.options.option1;
+    option2.innerText = questionIdx.options.option2;
+    option3.innerText = questionIdx.options.option3;
+    option4.innerText = questionIdx.options.option4;
 
+    //
+    inputOption1.value = questionIdx.options.option1;
+    inputOption2.value = questionIdx.options.option2;
+    inputOption3.value = questionIdx.options.option3;
+    inputOption4.value = questionIdx.options.option4;
+  } else {
+    // console.log("no options");
+    displayContentSwitcher();
+  }
+};
 const renderQuestion = (questionIdx) => {
   htmlTemplate(questionIdx);
   // switch radio to checkbox & vise versa
-  if (question.qeustionCategory) {
+  if (
+    questionIdx.qeustionCategory &&
+    questionIdx.qeustionCategory != "textAreaQ"
+  ) {
     allOptions.forEach((inputTag) => {
       inputTag.type = "radio";
     });
-  } else {
+  } else if (
+    !questionIdx.qeustionCategory &&
+    questionIdx.qeustionCategory != "textAreaQ"
+  ) {
     allOptions.forEach((inputTag) => (inputTag.type = "checkbox"));
+  } else if (questionIdx.qeustionCategory == "textAreaQ") {
+    displayContentSwitcher();
+    //invoke function that chenge all checkboxs&radio to be hidden and textArea to be displayed
   }
 };
-
+//Picking Answers
+let totoalStudentAnswer = [];
+const answerHandler = () => {
+  let singleAnswer = [];
+  let answerOptions = document.getElementsByName("Answer");
+  answerOptions.forEach((op, idx) => {
+    // let targettedOption = questions[idx].options.option;
+    console.log(op);
+    if (op.checked) {
+      singleAnswer.push(op.value);
+    } else if (!op.checked && op.checked) {
+      singleAnswer.push(op.value);
+    }
+  });
+  totoalStudentAnswer[currentQuestionIndex] = singleAnswer;
+  console.log(totoalStudentAnswer);
+};
 // move to next question
 let currentQuestionIndex = 0;
-
+console.log(currentQuestionIndex);
+console.log(questions.length);
 const nextQuestionHandler = () => {
-  if (currentQuestionIndex < questions.length) {
-    currentQuestionIndex++;
-    renderQuestion(questions[currentQuestionIndex]);
-    nextBtn.innerText = "Next";
-  } else if (currentQuestionIndex == questions.length) {
+  unCheckInputs();
+  let newIndex = currentQuestionIndex + 1;
+  const lastQindex = questions.length - 1;
+  if (newIndex == lastQindex) {
+    console.log("Finifs ----newIndex");
     nextBtn.innerText = "Finish";
   }
+  console.log(newIndex);
+  if (questions.length == newIndex) {
+    examResult();
+    return;
+  }
+  console.log(newIndex);
+
+  currentQuestionIndex++;
+  renderQuestion(questions[currentQuestionIndex]);
+};
+const examResult = () => {
+  if (totoalStudentAnswer == questions.allAnswers) {
+    console.log("###RESULT: ");
+  } else {
+    console.log("??????????RESULT: ");
+  }
+  console.log("RESULT: ");
+  console.log(totoalStudentAnswer);
 };
 renderQuestion(questions[currentQuestionIndex]);
+const unCheckInputs = () => {
+  let answerOptions = document.getElementsByName("Answer");
+  answerOptions.forEach((input) => {
+    if (input.checked) {
+      input.checked = false;
+    }
+  });
+};
