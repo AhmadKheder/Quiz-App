@@ -26,3 +26,7 @@ footer button {
   flex-grow: 0;
   /* margin: 0  px 10px; */
 }
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
