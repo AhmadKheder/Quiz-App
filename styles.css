@@ -1,6 +1,8 @@
 .body {
   background: #e5e5e5;
   margin-top: 0px;
+  font-family: Segoe UI;
+  font-style: normal;
 }
 .main-flex-container {
   display: flex;
@@ -16,7 +18,7 @@
   top: 205px;
   border-radius: 16px;
 }
-.quiz-title1 {
+.quiz-title {
   width: 100px;
   height: 32px;
   left: 910px;
@@ -44,17 +46,32 @@
 
   /* Inside auto layout */
 
+  font-family: Segoe UI;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 13px;
+  border-radius: 5px;
+  box-shadow: 0 0 0 #000, 0 0 0 #000, 0 0 0 #000, 0 0 1px #000;
+
+  text-transform: uppercase;
+
+  /* Accent Colors/Purple/P500 */
+
+  color: #5a4496;
+
+  /* Inside auto layout */
+
   flex: none;
-  order: 1;
+  order: 0;
   flex-grow: 0;
-  margin: 8px 0px;
+  margin-top: 10px;
 }
 .questions-No {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  height: 32px;
+  height: 30px;
 
   /* Backgrond/Default */
 
@@ -66,18 +83,14 @@
   flex: none;
   order: 1;
   flex-grow: 0;
-  margin: 8px 0px;
+  /* margin: 8px 0px; */
 }
 .quizzed-students-No {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
 
-  width: 290px;
-  height: 32px;
-  left: 0px;
-  top: 40px;
+  height: 30px;
 
   /* Backgrond/Default */
 
@@ -89,5 +102,23 @@
   flex: none;
   order: 1;
   flex-grow: 0;
-  margin: 8px 0px;
+}
+.questions-No {
+  display: flex;
+  /* flex-direction: row; */
+  align-items: center;
+  justify-content: space-evenly;
+
+  width: 100px;
+
+  /* Backgrond/Default */
+
+  background: #f6f6f8;
+  border-radius: 8px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
 }
