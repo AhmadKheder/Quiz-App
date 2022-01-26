@@ -1,91 +1,192 @@
-const questions = [{
-        question: "1First question First question First question?",
-        options: {
-            option1: " 111 option1 sit amet consectetur adipisicing elit.  Cumoluptate! Delectus placeat i",
-            option2: " 111 option1 sit amet consectetur",
-            option3: "111 option1 consectetur adipisicing elit.",
-            option4: "111 option1 Cumoluptate! Delectus placeat",
-        },
-        type: "select",
-        rightAnswers: [this.option1],
-        inputType: "radio",
+const questions = [
+  {
+    question: "1First question First question First question?",
+    options: {
+      option1:
+        " 111 option1 sit amet consectetur adipisicing elit.  Cumoluptate! Delectus placeat i",
+      option2: " 111 option1 sit amet consectetur",
+      option3: "111 option1 consectetur adipisicing elit.",
+      option4: "111 option1 Cumoluptate! Delectus placeat",
     },
-    {
-        question: "2First question First question First question?",
+    type: "select",
+    rightAnswers: ["option1"],
+    inputType: "radio",
+  },
+  {
+    question: "2First question First question First question?",
 
-        options: {
-            option1: " 222 option1  sit amet consectetur adipisicing elit.  Cumoluptate! Delectus placeat i",
-            option2: "222 option1 sit amet consectetur",
-            option3: "222 option1 consectetur adipisicing elit.",
-            option4: "222 option1 Cumoluptate! Delectus placeat",
-        },
-        type: "select",
-        inputType: "radio",
-
-        rightAnswers: [this.option2],
+    options: {
+      option1:
+        " 222 option1  sit amet consectetur adipisicing elit.  Cumoluptate! Delectus placeat i",
+      option2: "222 option1 sit amet consectetur",
+      option3: "222 option1 consectetur adipisicing elit.",
+      option4: "222 option1 Cumoluptate! Delectus placeat",
     },
-    {
-        question: "3First question First question First question?",
+    type: "select",
+    inputType: "radio",
 
-        options: {
-            option1: " 333 option1 sit amet consectetur adipisicing elit.  Cumoluptate! Delectus placeat i",
-            option2: "333 option1 sit amet consectetur",
-            option3: "333 option1 consectetur adipisicing elit.",
-            option4: "333 option1 Cumoluptate! Delectus placeat",
-        },
-        type: "multiSelect",
-        inputType: "checkbox",
+    rightAnswers: ["option2"],
+  },
+  {
+    question: "3First question First question First question?",
 
-        rightAnswers: [this.option1, this.option2],
+    options: {
+      option1:
+        " 333 option1 sit amet consectetur adipisicing elit.  Cumoluptate! Delectus placeat i",
+      option2: "333 option1 sit amet consectetur",
+      option3: "333 option1 consectetur adipisicing elit.",
+      option4: "333 option1 Cumoluptate! Delectus placeat",
     },
-    {
-        question: "4First question First question First question?",
+    type: "multiSelect",
+    inputType: "checkbox",
 
-        options: {
-            option1: " 444 option1 sit amet consectetur adipisicing elit.  Cumoluptate! Delectus placeat i",
-            option2: "444 option1 sit amet consectetur",
-            option3: "444 option1 consectetur adipisicing elit.",
-            option4: "444 option1 Cumoluptate! Delectus placeat",
-        },
-        type: "multiSelect",
-        inputType: "checkbox",
+    rightAnswers: ["option1", "option2"],
+  },
+  {
+    question: "4First question First question First question?",
 
-        rightAnswers: [this.option1, this.option3],
+    options: {
+      option1:
+        " 444 option1 sit amet consectetur adipisicing elit.  Cumoluptate! Delectus placeat i",
+      option2: "444 option1 sit amet consectetur",
+      option3: "444 option1 consectetur adipisicing elit.",
+      option4: "444 option1 Cumoluptate! Delectus placeat",
     },
-    {
-        question: "Text Area Question?",
-        type: "text",
-        rightAnswers: ["Hello World"],
-        inputType: "text",
+    type: "multiSelect",
+    inputType: "checkbox",
 
-    },
-    () => {},
+    rightAnswers: ["option1", "option3"],
+  },
+  {
+    question: "Text Area Question?",
+    type: "text",
+    rightAnswers: ["Hello World"],
+    inputType: "text",
+  },
+  //   () => {},
 ];
-// All Right Answers
-const rightAnswers = {
-    qeustion1: [questions[0].options.option1],
-    qeustion2: [questions[1].options.option2],
-    qeustion3: [questions[2].options.option1, questions[2].options.option2],
-    qeustion4: [questions[3].options.option1, questions[3].options.option3],
-    qeustion5: [questions[4].rightAnswers],
-};
-// Target Each Single Element
-const question = document.getElementById("question");
-const option1 = document.getElementById("option1-label");
-const option2 = document.getElementById("option2-label");
-const option3 = document.getElementById("option3-label");
-const option4 = document.getElementById("option4-label");
-
-const inputOption1 = document.getElementById("option1");
-const inputOption2 = document.getElementById("option2");
-const inputOption3 = document.getElementById("option3");
-const inputOption4 = document.getElementById("option4");
-const inputDivs = document.getElementsByClassName("answer-option");
-const txtArea = document.getElementById("txtArea");
-const allOptions = document.querySelectorAll("input");
 
 const nextBtn = document.querySelector("#next-btn");
 let totoalStudentAnswer = [];
+
+// move to next question
+let currentQuestionIndex = 0;
+const nextQuestionHandler = () => {
+  answerHandler();
+  unCheckInputs();
+  let newIndex = currentQuestionIndex + 1;
+  const lastQindex = questions.length - 1;
+  if (newIndex == lastQindex) {
+    nextBtn.innerText = "Finish";
+  }
+  if (questions.length == newIndex) {
+    examResult();
+    return;
+  }
+
+  currentQuestionIndex++;
+  renderHtmlContentByQuestionType(questions[currentQuestionIndex]);
+};
+
+const answerHandler = () => {
+  let singleAnswer = {};
+  let answerOptions = document.getElementsByName("Answer");
+  answerOptions.forEach((op, idx) => {
+    if (op.checked) {
+      singleAnswer[op.id] = op.value;
+    } else if (op.type == "textarea") {
+      singleAnswer = { [op.id]: op.value };
+    }
+  });
+  totoalStudentAnswer[currentQuestionIndex] = singleAnswer;
+  //   console.log(totoalStudentAnswer);
+};
+
+renderHtmlContentByQuestionType(questions[currentQuestionIndex]);
+
+function renderHtmlContentByQuestionType(question) {
+  const questionText = document.getElementById("question");
+
+  const questionContent = document.getElementById("question-content");
+  let result;
+  switch (question.type) {
+    case "select":
+    case "multiSelect": {
+      const optionsList = Object.values(question.options);
+      result = optionsList
+        .map((optionTitle, index) => {
+          questionText.innerHTML = question.question;
+
+          return `<div class="answerOption">
+                    <input type='${
+                      question.inputType
+                    }' name="Answer" id="option-${
+            index + 1
+          }" value='${optionTitle}' />
+                    <label id="option-label-${index + 1}">${optionTitle}</label>
+                </div>`;
+        })
+        .join("");
+
+      break;
+    }
+
+    case "text": {
+      result = `
+                <textarea  placeholder="Type your answer..." class="txtArea" name="Answer" id="txtArea" cols="30" rows="10"></textarea>
+            `;
+      break;
+    }
+  }
+  questionContent.innerHTML = result;
+}
+const unCheckInputs = () => {
+  let answerOptions = document.getElementsByName("Answer");
+  answerOptions.forEach((input) => {
+    if (input.checked) {
+      input.checked = false;
+    }
+  });
+};
+
+const highestGrade = 100;
+const oneQuestionGrade = highestGrade / questions;
+const oneOptionOfAnswersGrade = oneQuestionGrade / questions.options;
+const allRightAnswers = [];
+questions.forEach((ele) => {
+  allRightAnswers.push(ele.rightAnswers);
+});
+
+const examResult = () => {
+  console.log(totoalStudentAnswer, "151515151");
+  console.log(allRightAnswers);
+  totoalStudentAnswer.forEach((ele) => {
+    console.log(ele);
+    for (let element in ele) {
+      let arbitaryvariable = allRightAnswers.every((ele) => {
+        ele.forEach((answer, index) => {
+          console.log(answer, "answer");
+          console.log(ele[index], "ele[index]");
+
+          return (
+            toString(ele[index]).toUpperCase() == toString(answer).toUpperCase()
+          );
+        });
+      });
+      console.log(element);
+      console.log(arbitaryvariable);
+    }
+  });
+
+  //   totoalStudentAnswer.e;
+
+  // let examGrade
+
+  // x.some(item => y.includes(item))
+};
+function checkingAnswer(answer) {
+  allRightAnswers;
+}
 
 // const renderQuestion = (currentQuestion) => {
 //     // estimatedTime();
@@ -133,98 +234,19 @@ let totoalStudentAnswer = [];
 //     }
 // };
 
-const examResult = () => {
-    if (totoalStudentAnswer == questions.allAnswers) {
-        console.log("###RESULT: ");
-    } else {
-        console.log("??????????RESULT: ");
-    }
+//   console.log(answerOptions);
+//   for (let opp of answerOptions) {
+//     if (opp.checked) {
+//       console.log(opp);
 
-    const x = [1, 2];
-    const y = [2, 1];
+//       let wow = opp.id;
+//       singleAnswer = { wow: opp.value };
+//       //   singleAnswer.value = opp.value;
+//     } else if (opp.type == "text") {
+//       console.log(opp);
 
-    // let examGrade
-
-    // x.some(item => y.includes(item))
-
-    console.log("RESULT: ");
-    console.log(totoalStudentAnswer);
-};
-
-// move to next question
-let currentQuestionIndex = 0;
-const nextQuestionHandler = () => {
-    unCheckInputs();
-    let newIndex = currentQuestionIndex + 1;
-    const lastQindex = questions.length - 1;
-    if (newIndex == lastQindex) {
-        console.log("Finifs ----newIndex");
-        nextBtn.innerText = "Finish";
-    }
-    console.log(newIndex);
-    if (questions.length == newIndex) {
-        examResult();
-        return;
-    }
-    console.log(newIndex);
-
-    currentQuestionIndex++;
-    renderHtmlContentByQuestionType(questions[currentQuestionIndex]);
-};
-//uncheck boxes&radios eachNext-btn
-const unCheckInputs = () => {
-    let answerOptions = document.getElementsByName("Answer");
-    answerOptions.forEach((input) => {
-        if (input.checked) {
-            input.checked = false;
-        }
-    });
-};
-//Picking Answers
-
-const answerHandler = () => {
-    let singleAnswer = [];
-    let answerOptions = document.getElementsByName("Answer");
-    answerOptions.forEach((op, idx) => {
-        if (op.checked) {
-            singleAnswer.push(op.value);
-        } else if (!op.checked && op.checked) {
-            singleAnswer.push(op.value);
-        }
-    });
-    totoalStudentAnswer[currentQuestionIndex] = singleAnswer;
-};
-
-renderHtmlContentByQuestionType(questions[currentQuestionIndex]);
-
-function renderHtmlContentByQuestionType(question) {
-    const questionContent = document.getElementById("question-content");
-    let result = "<> </>";
-    switch (question.type) {
-        case "select":
-        case "multiSelect":
-            {
-                const optionsList = Object.values(question.options);
-                result = optionsList
-                .map((optionTitle, index) => {
-                    return `<div class="answerOption">
-                    <input onchange="answerHandler()" type='${question.inputType}' name="Answer" id="option-${index}" value='${optionTitle}' />
-                    <label id="option-label-${index}">${optionTitle}</label>
-                </div>`;
-                })
-                .join("");
-
-                break;
-            }
-
-        case "text":
-            {
-                result = `
-                <textarea placeholder="Type your answer..." class="txtArea" name="Answer" id="txtArea" cols="30" rows="10"></textarea>
-            `;
-                break;
-            }
-    }
-
-    questionContent.innerHTML = result;
-}
+//       let wow = opp.id;
+//       singleAnswer = { wow: opp.value };
+//       //   singleAnswer = { opp };
+//     }
+//   }
