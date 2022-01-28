@@ -67,7 +67,6 @@ const questions = [
     rightAnswers: ["Hello World"],
     inputType: "text",
   },
-  //   () => {},
 ];
 
 const nextBtn = document.querySelector("#next-btn");
@@ -84,8 +83,10 @@ const nextQuestionHandler = () => {
     nextBtn.innerText = "Finish";
   }
   if (questions.length == newIndex) {
-    // console.log("the studnt answers is:", totoalStudentAnswer);
     examResult();
+    clearInterval(countDown);
+    // window.location.href = "/";
+
     return;
   }
 
@@ -120,9 +121,6 @@ const answerHandler = () => {
       questionId: currentQuestion.questionId,
       answers: answerOptions[0].value,
     };
-
-    // console.log({ answerValue });
-
     totoalStudentAnswer = [...totoalStudentAnswer, answerValue];
   }
 };
@@ -174,32 +172,16 @@ const unCheckInputs = () => {
   });
 };
 
-const highestGrade = 100;
-const oneQuestionGrade = highestGrade / questions;
-const oneOptionOfAnswersGrade = oneQuestionGrade / questions.options;
-
 const examResult = () => {
-  console.log(totoalStudentAnswer, "151515151");
-
   let gradeResult = 0;
-
+  let rightAnswersTotalCount = 0;
   totoalStudentAnswer.map((x, idx) => {
-    // const correctAnswer = questions.find( (q) => q.questionId === x.questionId ).rightAnswers;
-    // const studentAnswe = x.answers;
-    // console.log("correctAnswer", correctAnswer);
-    //geting the correct id of the correct answer ["option1", "option2"]
+    const studentAnswe = x.answers;
     let correctAnswerIds = questions[idx].rightAnswers;
+    rightAnswersTotalCount += correctAnswerIds.length;
     let studentAnswer = Array.from(x.answers);
 
     switch (questions[idx].inputType) {
-      // case "radio":
-      //   if (questions[idx].options[correctAnswerIds] == x.answers[0]) {
-      //     console.log(`q${idx} is correct `);
-      //     gradeResult++;
-      //   } else {
-      //     console.log(`q${idx} is not correct `);
-      //   }
-      //   break;
       case "radio":
       case "checkbox":
         let optionsListObj = questions[idx].options;
@@ -221,23 +203,63 @@ const examResult = () => {
         if (correctAnswerIds.toString() == x.answers) {
           gradeResult++;
         }
-
-        // if (
-        //   questions[idx].options[correctAnswerIds[0]] == x.answers[0] &&
-        //   questions[idx].options[correctAnswerIds[1]] == x.answers[1] &&
-        //   x.answers.length == 2
-        // ) {
-        //   console.log(`q${idx} is correct `);
-        // } else {
-        //   console.log(`q${idx} is not correct `);
-        // }
         break;
 
       default:
         break;
     }
   });
+  console.log("Default :??? ", rightAnswersTotalCount);
   console.log("gradeResult", gradeResult);
-
+  testScore(rightAnswersTotalCount, gradeResult);
   // x.some(item => y.includes(item))
+};
+const testScore = (totalGrade, studentGrade) => {
+  const percentageRusult = Math.round((studentGrade / totalGrade) * 100);
+  popUpScore(percentageRusult);
+  alert(`You Got a: ${percentageRusult} Out of 100`);
+};
+
+const mainTag = document.getElementById("main");
+// console.log(maintag);
+function popUpScore(percentageRusult) {
+  console.log("inside popUpScore function ", percentageRusult);
+  const successImoge = `  <div class="gradeContainer">
+  <h1 class="grade">you got ${percentageRusult}</h1>
+  <a title="Go to Home Page" href="/index.html">
+  <div class="emoje smile"></div>
+  <div class="eye"></div>
+  <div class="eye eye1"></div>
+  </a>
+</div>`;
+  if (percentageRusult == 100) {
+    mainTag.innerHTML = successImoge;
+  }
+}
+/////COUNTDOWNTIMER
+
+const timetxt = document.getElementById("time");
+let seconds = 600;
+const countDown = setInterval(function () {
+  decreaser();
+}, 1000);
+
+const decreaser = () => {
+  const minutes = Math.floor(seconds / 60);
+  const remainSeconds = seconds % 60;
+
+  if (seconds < 10 && minutes < 10) {
+    timetxt.innerHTML = `   0${minutes} : 0${remainSeconds}`;
+  } else if (minutes < 10) {
+    timetxt.innerHTML = `  0${minutes} : ${remainSeconds}`;
+  } else {
+    timetxt.innerHTML = `   ${minutes} : 0${remainSeconds}`;
+  }
+  if (seconds > 0) {
+    seconds -= 1;
+  } else if (minutes > 0 && seconds == 0) {
+    minutes -= 1;
+  } else if (minutes == 0 && seconds == 0) {
+    clearInterval(countDown);
+  }
 };
