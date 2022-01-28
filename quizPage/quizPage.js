@@ -179,16 +179,15 @@ const oneQuestionGrade = highestGrade / questions;
 const oneOptionOfAnswersGrade = oneQuestionGrade / questions.options;
 
 const examResult = () => {
-  console.log(totoalStudentAnswer, "151515151");
+  // console.log(totoalStudentAnswer, "151515151");
 
   let gradeResult = 0;
-
+  let rightAnswersTotalCount = 0;
   totoalStudentAnswer.map((x, idx) => {
     // const correctAnswer = questions.find( (q) => q.questionId === x.questionId ).rightAnswers;
-    // const studentAnswe = x.answers;
-    // console.log("correctAnswer", correctAnswer);
-    //geting the correct id of the correct answer ["option1", "option2"]
+    const studentAnswe = x.answers;
     let correctAnswerIds = questions[idx].rightAnswers;
+    rightAnswersTotalCount += correctAnswerIds.length;
     let studentAnswer = Array.from(x.answers);
 
     switch (questions[idx].inputType) {
@@ -237,7 +236,12 @@ const examResult = () => {
         break;
     }
   });
+  console.log("Default :??? ", rightAnswersTotalCount);
   console.log("gradeResult", gradeResult);
-
+  testScore(rightAnswersTotalCount, gradeResult);
   // x.some(item => y.includes(item))
+};
+const testScore = (totalGrade, studentGrade) => {
+  const percentageRusult = Math.round((studentGrade / totalGrade) * 100);
+  alert(`You Got a: ${percentageRusult} Out of 100`);
 };
