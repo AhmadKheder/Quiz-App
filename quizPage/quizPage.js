@@ -1,5 +1,6 @@
 const questions = [
   {
+    questionId: "question1",
     question: "1First question First question First question?",
     options: {
       option1:
@@ -13,8 +14,8 @@ const questions = [
     inputType: "radio",
   },
   {
+    questionId: "question2",
     question: "2First question First question First question?",
-
     options: {
       option1:
         " 222 option1  sit amet consectetur adipisicing elit.  Cumoluptate! Delectus placeat i",
@@ -28,11 +29,12 @@ const questions = [
     rightAnswers: ["option2"],
   },
   {
+    questionId: "question3",
     question: "3First question First question First question?",
 
     options: {
       option1:
-        " 333 option1 sit amet consectetur adipisicing elit.  Cumoluptate! Delectus placeat i",
+        "333 option1 sit amet consectetur adipisicing elit.  Cumoluptate! Delectus placeat i",
       option2: "333 option1 sit amet consectetur",
       option3: "333 option1 consectetur adipisicing elit.",
       option4: "333 option1 Cumoluptate! Delectus placeat",
@@ -43,6 +45,7 @@ const questions = [
     rightAnswers: ["option1", "option2"],
   },
   {
+    questionId: "question4",
     question: "4First question First question First question?",
 
     options: {
@@ -58,6 +61,7 @@ const questions = [
     rightAnswers: ["option1", "option3"],
   },
   {
+    questionId: "question5",
     question: "Text Area Question?",
     type: "text",
     rightAnswers: ["Hello World"],
@@ -80,6 +84,7 @@ const nextQuestionHandler = () => {
     nextBtn.innerText = "Finish";
   }
   if (questions.length == newIndex) {
+    // console.log("the studnt answers is:", totoalStudentAnswer);
     examResult();
     return;
   }
@@ -89,17 +94,37 @@ const nextQuestionHandler = () => {
 };
 
 const answerHandler = () => {
-  let singleAnswer = {};
-  let answerOptions = document.getElementsByName("Answer");
-  answerOptions.forEach((op, idx) => {
-    if (op.checked) {
-      singleAnswer[op.id] = op.value;
-    } else if (op.type == "textarea") {
-      singleAnswer = { [op.id]: op.value };
-    }
-  });
-  totoalStudentAnswer[currentQuestionIndex] = singleAnswer;
-  //   console.log(totoalStudentAnswer);
+  const answerOptions = Array.from(document.getElementsByName("Answer"));
+  const currentQuestion = questions[currentQuestionIndex];
+
+  if (
+    currentQuestion.inputType === "checkbox" ||
+    currentQuestion.inputType === "radio"
+  ) {
+    const answerValue = {
+      questionId: currentQuestion.questionId,
+      answers: answerOptions
+        .map((x) => {
+          if (x.checked) {
+            return x.value;
+          }
+        })
+        .filter((item) => item),
+    };
+
+    totoalStudentAnswer = [...totoalStudentAnswer, answerValue];
+  }
+
+  if (currentQuestion.inputType === "text") {
+    const answerValue = {
+      questionId: currentQuestion.questionId,
+      answers: answerOptions[0].value,
+    };
+
+    // console.log({ answerValue });
+
+    totoalStudentAnswer = [...totoalStudentAnswer, answerValue];
+  }
 };
 
 renderHtmlContentByQuestionType(questions[currentQuestionIndex]);
@@ -152,101 +177,67 @@ const unCheckInputs = () => {
 const highestGrade = 100;
 const oneQuestionGrade = highestGrade / questions;
 const oneOptionOfAnswersGrade = oneQuestionGrade / questions.options;
-const allRightAnswers = [];
-questions.forEach((ele) => {
-  allRightAnswers.push(ele.rightAnswers);
-});
 
 const examResult = () => {
   console.log(totoalStudentAnswer, "151515151");
-  console.log(allRightAnswers);
-  totoalStudentAnswer.forEach((ele) => {
-    console.log(ele);
-    for (let element in ele) {
-      let arbitaryvariable = allRightAnswers.every((ele) => {
-        ele.forEach((answer, index) => {
-          console.log(answer, "answer");
-          console.log(ele[index], "ele[index]");
 
-          return (
-            toString(ele[index]).toUpperCase() == toString(answer).toUpperCase()
-          );
+  let gradeResult = 0;
+
+  totoalStudentAnswer.map((x, idx) => {
+    // const correctAnswer = questions.find( (q) => q.questionId === x.questionId ).rightAnswers;
+    // const studentAnswe = x.answers;
+    // console.log("correctAnswer", correctAnswer);
+    //geting the correct id of the correct answer ["option1", "option2"]
+    let correctAnswerIds = questions[idx].rightAnswers;
+    let studentAnswer = Array.from(x.answers);
+
+    switch (questions[idx].inputType) {
+      // case "radio":
+      //   if (questions[idx].options[correctAnswerIds] == x.answers[0]) {
+      //     console.log(`q${idx} is correct `);
+      //     gradeResult++;
+      //   } else {
+      //     console.log(`q${idx} is not correct `);
+      //   }
+      //   break;
+      case "radio":
+      case "checkbox":
+        let optionsListObj = questions[idx].options;
+        let optionsListArr = [];
+        for (let op in optionsListObj) {
+          optionsListArr.push(op);
+        }
+
+        correctAnswerIds.forEach((val, idx) => {
+          if (studentAnswer.includes(optionsListObj[val])) {
+            console.log("Somthis");
+            gradeResult++;
+          } else {
+            console.log("Not");
+          }
+          x.answers;
         });
-      });
-      console.log(element);
-      console.log(arbitaryvariable);
+      case "text":
+        if (correctAnswerIds.toString() == x.answers) {
+          gradeResult++;
+        }
+
+        // if (
+        //   questions[idx].options[correctAnswerIds[0]] == x.answers[0] &&
+        //   questions[idx].options[correctAnswerIds[1]] == x.answers[1] &&
+        //   x.answers.length == 2
+        // ) {
+        //   console.log(`q${idx} is correct `);
+        // } else {
+        //   console.log(`q${idx} is not correct `);
+        // }
+        break;
+
+      default:
+        break;
     }
   });
-
-  //   totoalStudentAnswer.e;
-
-  // let examGrade
+  console.log("gradeResult", gradeResult);
 
   // x.some(item => y.includes(item))
 };
-function checkingAnswer(answer) {
-  allRightAnswers;
-}
-
-// const renderQuestion = (currentQuestion) => {
-//     // estimatedTime();
-//     htmlTemplate(currentQuestion);
-
-//     switch (currentQuestion.type) {
-//         case "select":
-//             {
-//                 allOptions.forEach((inputTag) => {
-//                     inputTag.type = "radio";
-//                 });
-//                 break;
-//             }
-//         case "multiSelect":
-//             {
-//                 allOptions.forEach((inputTag) => (inputTag.type = "checkbox"));
-//                 break;
-//             }
-
-//         case "text":
-//             {
-//                 txtArea.style.display = "flex";
-//                 inputDivs.style.display = "none";
-//                 break;
-//             }
-//     }
-// };
-
-// // change question content
-// const htmlTemplate = (questionIdx) => {
-//     question.innerText = questionIdx.question;
-//     if (questionIdx.options) {
-//         option1.innerText = questionIdx.options.option1;
-//         option2.innerText = questionIdx.options.option2;
-//         option3.innerText = questionIdx.options.option3;
-//         option4.innerText = questionIdx.options.option4;
-
-//         //
-//         inputOption1.value = questionIdx.options.option1;
-//         inputOption2.value = questionIdx.options.option2;
-//         inputOption3.value = questionIdx.options.option3;
-//         inputOption4.value = questionIdx.options.option4;
-//     } else {
-//         displayContentSwitcher();
-//     }
-// };
-
-//   console.log(answerOptions);
-//   for (let opp of answerOptions) {
-//     if (opp.checked) {
-//       console.log(opp);
-
-//       let wow = opp.id;
-//       singleAnswer = { wow: opp.value };
-//       //   singleAnswer.value = opp.value;
-//     } else if (opp.type == "text") {
-//       console.log(opp);
-
-//       let wow = opp.id;
-//       singleAnswer = { wow: opp.value };
-//       //   singleAnswer = { opp };
-//     }
-//   }
