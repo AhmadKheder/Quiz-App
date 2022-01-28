@@ -243,5 +243,21 @@ const examResult = () => {
 };
 const testScore = (totalGrade, studentGrade) => {
   const percentageRusult = Math.round((studentGrade / totalGrade) * 100);
+  popUpScore(percentageRusult);
   alert(`You Got a: ${percentageRusult} Out of 100`);
 };
+
+const mainTag = document.getElementById("main");
+// console.log(maintag);
+function popUpScore(percentageRusult) {
+  console.log("inside popUpScore function ", percentageRusult);
+  const successImoge = `  <div class="gradeContainer">
+  <h1 class="grade">you got ${percentageRusult}</h1>
+  <div class="emoje smile"></div>
+  <div class="eye"></div>
+  <div class="eye eye1"></div>
+</div>`;
+  if (percentageRusult == 100) {
+    mainTag.innerHTML = successImoge;
+  }
+}
