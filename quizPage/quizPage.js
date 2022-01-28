@@ -125,8 +125,6 @@ const answerHandler = () => {
   }
 };
 
-renderHtmlContentByQuestionType(questions[currentQuestionIndex]);
-
 function renderHtmlContentByQuestionType(question) {
   const questionText = document.getElementById("question");
 
@@ -155,6 +153,7 @@ function renderHtmlContentByQuestionType(question) {
     }
 
     case "text": {
+      questionText.innerHTML = question.question;
       result = `
                 <textarea  placeholder="Type your answer..." class="txtArea" name="Answer" id="txtArea" cols="30" rows="10"></textarea>
             `;
@@ -286,3 +285,4 @@ const decreaser = () => {
     clearInterval(countDown);
   }
 };
+renderHtmlContentByQuestionType(questions[currentQuestionIndex]);
