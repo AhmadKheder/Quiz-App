@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="quizPage.css" />
+    <link rel="stylesheet" href="/styles/header.css" />
     <link rel="stylesheet" href="/styles/footer.css" />
 
     <script
@@ -15,7 +16,14 @@
   </head>
 
   <body>
-    <header>Progressbar</header>
+    <header>
+      <div class="x-progress-icon">
+        <i class="fas fa-times"></i>
+      </div>
+      <div class="progress">
+        <span></span>
+      </div>
+    </header>
     <main id="main">
       <div class="quiz-container">
         <div class="question">
@@ -26,6 +34,7 @@
             laudantium cumque, veritatis quo!
           </p>
         </div>
+        <div><hr /></div>
         <div id="question-content"></div>
       </div>
     </main>

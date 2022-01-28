@@ -4,7 +4,7 @@ const questions = [
     question: "1First question First question First question?",
     options: {
       option1:
-        " 111 option1 sit amet consectetur adipisicing elit.  Cumoluptate! Delectus placeat i",
+        " 111 option1 sit amet consectetur 111 option1 sit amet consectetur 111 option1 sit amet consectetur 111 option1 sit amet consectetur adipisicing elit.  Cumoluptate! Delectus placeat i",
       option2: " 111 option1 sit amet consectetur",
       option3: "111 option1 consectetur adipisicing elit.",
       option4: "111 option1 Cumoluptate! Delectus placeat",
@@ -140,7 +140,7 @@ function renderHtmlContentByQuestionType(question) {
         .map((optionTitle, index) => {
           questionText.innerHTML = question.question;
 
-          return `<div class="answerOption">
+          return `<div class="answerOption qCard">
                     <input type='${
                       question.inputType
                     }' name="Answer" id="option-${
@@ -224,18 +224,41 @@ const mainTag = document.getElementById("main");
 // console.log(maintag);
 function popUpScore(percentageRusult) {
   console.log("inside popUpScore function ", percentageRusult);
-  const successImoge = `  <div class="gradeContainer">
-  <h1 class="grade">you got ${percentageRusult}</h1>
+
+  const fullMarkImoji = `  <div class="gradeContainer">
+  <h1 class="grade">you got ${percentageRusult}%</h1>
   <a title="Go to Home Page" href="/index.html">
   <div class="emoje smile"></div>
   <div class="eye"></div>
   <div class="eye eye1"></div>
   </a>
 </div>`;
+  const goodMarkImoji = `  <div class="gradeContainer">
+<h1 class="grade">you got ${percentageRusult}%</h1>
+<a  title="Go to Home Page" href="/index.html">
+<img class="imojiImg" src="/images/smiling-face.png" alt="smiling-face.png">
+
+</a>
+</div>`;
+
+  const lowMarkImoji = `  <div class="gradeContainer">
+<h1 class="grade">you got ${percentageRusult}%</h1>
+<a   title="Go to Home Page" href="/index.html">
+<img class="imojiImg" src="/images/sadImoji.png" alt="sadImoji.png">
+
+
+
+</a>
+</div>`;
   if (percentageRusult == 100) {
-    mainTag.innerHTML = successImoge;
+    mainTag.innerHTML = fullMarkImoji;
+  } else if (percentageRusult <= 100 && percentageRusult >= 50) {
+    mainTag.innerHTML = goodMarkImoji;
+  } else {
+    mainTag.innerHTML = lowMarkImoji;
   }
 }
+
 /////COUNTDOWNTIMER
 
 const timetxt = document.getElementById("time");
