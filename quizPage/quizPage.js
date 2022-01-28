@@ -126,6 +126,8 @@ const answerHandler = () => {
 };
 
 function renderHtmlContentByQuestionType(question) {
+  increaseProgressBypercentage(currentQuestionIndex);
+  // console.log("currentQuestionIndex", currentQuestionIndex);
   const questionText = document.getElementById("question");
 
   const questionContent = document.getElementById("question-content");
@@ -208,10 +210,8 @@ const examResult = () => {
         break;
     }
   });
-  console.log("Default :??? ", rightAnswersTotalCount);
-  console.log("gradeResult", gradeResult);
+
   testScore(rightAnswersTotalCount, gradeResult);
-  // x.some(item => y.includes(item))
 };
 const testScore = (totalGrade, studentGrade) => {
   const percentageRusult = Math.round((studentGrade / totalGrade) * 100);
@@ -220,7 +220,6 @@ const testScore = (totalGrade, studentGrade) => {
 };
 
 const mainTag = document.getElementById("main");
-// console.log(maintag);
 function popUpScore(percentageRusult) {
   console.log("inside popUpScore function ", percentageRusult);
 
@@ -285,4 +284,13 @@ const decreaser = () => {
     clearInterval(countDown);
   }
 };
+
+const questionsLength = Object.keys(questions).length;
+
+const progressBar = document.getElementById("acheived");
+function increaseProgressBypercentage(questionIndex) {
+  const numberOfQuestions = questionIndex + 1;
+  const progressPercentage = (numberOfQuestions / questionsLength) * 100;
+  progressBar.style.width = `${progressPercentage}%`;
+}
 renderHtmlContentByQuestionType(questions[currentQuestionIndex]);
