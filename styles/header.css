@@ -28,7 +28,11 @@ header {
   width: 30px;
   height: 30px;
   background-color: #f6f6f8;
-  border: 0 solid #000;
   border-radius: 5px;
-  opacity: 0.5;
+}
+.x-progress-icon a {
+  background-color: #f6f6f8;
+  color: #7d7878;
+  border-radius: 5px;
+  opacity: 0.6;
 }

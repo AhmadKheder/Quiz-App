@@ -69,10 +69,14 @@ const questions = [
   },
 ];
 
+const questionsLength = Object.keys(questions).length;
+const mainTag = document.getElementById("main");
+const timetxt = document.getElementById("time");
+let seconds = 600;
+const progressBar = document.getElementById("acheived");
 const nextBtn = document.querySelector("#next-btn");
 let totoalStudentAnswer = [];
 
-// move to next question
 let currentQuestionIndex = 0;
 const nextQuestionHandler = () => {
   answerHandler();
@@ -85,8 +89,6 @@ const nextQuestionHandler = () => {
   if (questions.length == newIndex) {
     examResult();
     clearInterval(countDown);
-    // window.location.href = "/";
-
     return;
   }
 
@@ -125,9 +127,9 @@ const answerHandler = () => {
   }
 };
 
-renderHtmlContentByQuestionType(questions[currentQuestionIndex]);
-
 function renderHtmlContentByQuestionType(question) {
+  increaseProgressBypercentage(currentQuestionIndex);
+  // console.log("currentQuestionIndex", currentQuestionIndex);
   const questionText = document.getElementById("question");
 
   const questionContent = document.getElementById("question-content");
@@ -146,7 +148,10 @@ function renderHtmlContentByQuestionType(question) {
                     }' name="Answer" id="option-${
             index + 1
           }" value='${optionTitle}' />
-                    <label id="option-label-${index + 1}">${optionTitle}</label>
+                    <label for=${specifyLabelForString(
+                      question.inputType,
+                      index
+                    )} id="option-label-${index + 1}">${optionTitle}</label>
                 </div>`;
         })
         .join("");
@@ -155,6 +160,7 @@ function renderHtmlContentByQuestionType(question) {
     }
 
     case "text": {
+      questionText.innerHTML = question.question;
       result = `
                 <textarea  placeholder="Type your answer..." class="txtArea" name="Answer" id="txtArea" cols="30" rows="10"></textarea>
             `;
@@ -162,6 +168,20 @@ function renderHtmlContentByQuestionType(question) {
     }
   }
   questionContent.innerHTML = result;
+}
+function specifyLabelForString(type, index) {
+  switch (type) {
+    case "radio":
+      return "Answer";
+      break;
+    case "checkbox":
+      return `Answer${index + 1}`;
+      break;
+
+    default:
+      console.log("type", type);
+      break;
+  }
 }
 const unCheckInputs = () => {
   let answerOptions = document.getElementsByName("Answer");
@@ -209,22 +229,15 @@ const examResult = () => {
         break;
     }
   });
-  console.log("Default :??? ", rightAnswersTotalCount);
-  console.log("gradeResult", gradeResult);
+
   testScore(rightAnswersTotalCount, gradeResult);
-  // x.some(item => y.includes(item))
 };
 const testScore = (totalGrade, studentGrade) => {
   const percentageRusult = Math.round((studentGrade / totalGrade) * 100);
   popUpScore(percentageRusult);
-  alert(`You Got a: ${percentageRusult} Out of 100`);
 };
 
-const mainTag = document.getElementById("main");
-// console.log(maintag);
 function popUpScore(percentageRusult) {
-  console.log("inside popUpScore function ", percentageRusult);
-
   const fullMarkImoji = `  <div class="gradeContainer">
   <h1 class="grade">you got ${percentageRusult}%</h1>
   <a title="Go to Home Page" href="/index.html">
@@ -259,10 +272,6 @@ function popUpScore(percentageRusult) {
   }
 }
 
-/////COUNTDOWNTIMER
-
-const timetxt = document.getElementById("time");
-let seconds = 600;
 const countDown = setInterval(function () {
   decreaser();
 }, 1000);
@@ -286,3 +295,10 @@ const decreaser = () => {
     clearInterval(countDown);
   }
 };
+
+function increaseProgressBypercentage(questionIndex) {
+  const numberOfQuestions = questionIndex + 1;
+  const progressPercentage = (numberOfQuestions / questionsLength) * 100;
+  progressBar.style.width = `${progressPercentage}%`;
+}
+renderHtmlContentByQuestionType(questions[currentQuestionIndex]);
