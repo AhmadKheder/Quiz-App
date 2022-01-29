@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="quizPage.css" />
+    <link rel="stylesheet" href="/styles/header.css" />
     <link rel="stylesheet" href="/styles/footer.css" />
 
     <script
@@ -13,9 +14,18 @@
     ></script>
     <title>Quiz</title>
   </head>
+
   <body>
-    <header>Progressbar</header>
-    <main>
+    <header>
+      <div class="x-progress-icon">
+        <a title="Exit to Home Page" href="/index.html" class="fas fa-times">
+        </a>
+      </div>
+      <div class="progress">
+        <span id="acheived"></span>
+      </div>
+    </header>
+    <main id="main">
       <div class="quiz-container">
         <div class="question">
           <p id="question">
@@ -25,60 +35,15 @@
             laudantium cumque, veritatis quo!
           </p>
         </div>
-
-        <div class="answer-option">
-          <input
-            onchange="answerHandler()"
-            type="radio"
-            name="Answer"
-            id="option1"
-            value="dddd"
-          />
-          <label id="option1-label" for="Answer1"></label>
-        </div>
-        <div class="answer-option">
-          <input
-            onchange="answerHandler()"
-            type="radio"
-            name="Answer"
-            id="option2"
-          />
-          <label id="option2-label" for="Answer2"></label>
-        </div>
-        <div class="answer-option">
-          <input
-            onchange="answerHandler()"
-            type="radio"
-            name="Answer"
-            id="option3"
-          />
-          <label id="option3-label" for="Answer3"></label>
-        </div>
-        <div class="answer-option">
-          <input
-            onchange="answerHandler()"
-            type="radio"
-            name="Answer"
-            id="option4"
-          />
-
-          <label id="option4-label" for="Answer4"></label>
-        </div>
-        <div class="answer-option">
-          <textarea
-            placeholder="Type your answer..."
-            class="txtArea"
-            name="Answer"
-            id="txtArea"
-            cols="30"
-            rows="10"
-          >
-          </textarea>
-        </div>
+        <div><hr /></div>
+        <div id="question-content"></div>
       </div>
     </main>
     <footer>
-      <h2><i></i> Timer</h2>
+      <h2>
+        <i class="fas fa-stopwatch"><span id="time"></span></i>
+      </h2>
+
       <button onclick="nextQuestionHandler()" id="next-btn">Next</button>
     </footer>
     <script src="/quizPage/quizPage.js"></script>

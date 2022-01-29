@@ -9,20 +9,22 @@ footer {
 footer button {
   background-color: #634ba5;
   font-family: Segoe UI;
-  font-style: normal;
   font-weight: 600;
   font-size: 20px;
   line-height: 64px;
-  /* identical to box height, or 320% */
-
-  /* Backgrond/Paper */
-
+  display: flex;
+  align-self: center;
+  align-items: center;
+  height: 60px;
+  border-radius: 10px;
+  width: 108px;
+  justify-content: center;
   color: #ffffff;
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  /* margin: 0  px 10px; */
+}
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+footer h2 {
+  color: #634ba5;
 }
