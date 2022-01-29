@@ -94,7 +94,6 @@ main {
   display: block;
   width: 80%;
   align-self: center;
-  /* height: 50%; */
 }
 
 hr {
@@ -131,9 +130,14 @@ hr {
 .qCard {
   display: flex;
   align-items: center;
+  justify-content: start;
   height: 80px;
   border-radius: 20px;
   border: 2px solid #634ba5;
+  align-self: center;
+  box-shadow: 0 0 0 #000, 0 0 0 #000, 0 0 0 #000, 0 0 1px #000;
+
+  width: 80%;
 }
 
 #question-content {
@@ -170,4 +174,17 @@ hr {
 input[type="radio"],
 input[type="checkbox"] {
   accent-color: #634ba5;
+}
+
+label {
+  font-family: Segoe UI;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1b2a4e;
+
+  /* Inside auto layout */
+
+  padding: 0px 16px;
 }
