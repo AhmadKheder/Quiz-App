@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/styles/footer.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <script
       src="https://kit.fontawesome.com/5e187893d8.js"
       crossorigin="anonymous"
@@ -22,29 +26,34 @@
           alt=""
         />
         <h2 class="quiz-title">CSS Quiz</h2>
-
-        <div class="quiz-quantities-container">
-          <div class="questions-No">
-            <span>08</span>
-            <p>QUESTIONS</p>
+        <div class="under-title-boxs">
+          <div class="">
+            <div class="questions-No">
+              <span>8</span>
+              <p class="Questions">QUESTIONS</p>
+            </div>
           </div>
-        </div>
-        <div class="quiz-quantities-container">
           <div class="quizzed-students-No">
-            <i class="far fa-check-circle"></i>
+            <i class="fas fa-check-circle"></i>
             <p><span>24</span> STUDENTS FINISHED THIS QUIZ</p>
           </div>
         </div>
       </div>
     </main>
     <footer>
-      <h2>
-        <i class="fas fa-stopwatch"><span id="time"></span></i>
-      </h2>
-      <button onclick="">
-        <a href="/quizPage/quizPage.html">Start Now</a>
+      <div class="timer-container">
+        <div class="timer-box">
+          <i class="fas fa-stopwatch timer-icon"></i>
+        </div>
+        <span id="time">10:00</span>
+      </div>
+
+      <button
+        style="width: 144px"
+        onclick="location.href='/quizPage/quizPage.html'"
+      >
+        Start Now
       </button>
-      <!-- <button onclick="startQuiz()">Start Now</button> -->
     </footer>
   </body>
 </html>

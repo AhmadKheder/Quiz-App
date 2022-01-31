@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="stylesheet" href="quizPage.css" />
     <link rel="stylesheet" href="/styles/header.css" />
     <link rel="stylesheet" href="/styles/footer.css" />
@@ -12,19 +13,19 @@
       src="https://kit.fontawesome.com/5e187893d8.js"
       crossorigin="anonymous"
     ></script>
-    <title>Quiz</title>
+    <title>Qooooouiz</title>
   </head>
 
   <body>
     <header>
-      <div class="x-progress-icon">
-        <a title="Exit to Home Page" href="/index.html" class="fas fa-times">
-        </a>
+      <div onclick="home()" class="x-progress-icon">
+        <a title="Exit to Home Page" class="fas fa-times"> </a>
       </div>
       <div class="progress">
         <span id="acheived"></span>
       </div>
     </header>
+
     <main id="main">
       <div class="quiz-container">
         <div class="question">
@@ -39,10 +40,14 @@
         <div id="question-content"></div>
       </div>
     </main>
+
     <footer>
-      <h2>
-        <i class="fas fa-stopwatch"><span id="time"></span></i>
-      </h2>
+      <div class="timer-container">
+        <div class="timer-box">
+          <i class="fas fa-stopwatch timer-icon"></i>
+        </div>
+        <span id="time">10:00</span>
+      </div>
 
       <button onclick="nextQuestionHandler()" id="next-btn">Next</button>
     </footer>

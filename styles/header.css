@@ -3,9 +3,13 @@ header {
   display: flex;
   width: 100%;
   align-items: center;
+  justify-content: space-evenly;
+}
+body > header > div.x-progress-icon > a {
+  text-decoration: none;
 }
 .progress {
-  width: 95%;
+  width: 94%;
   height: 5px;
   border-radius: 5px;
   overflow: hidden;
@@ -25,8 +29,8 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   background-color: #f6f6f8;
   border-radius: 5px;
 }
