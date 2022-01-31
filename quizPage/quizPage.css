@@ -1,6 +1,15 @@
 .body {
   background: #e5e5e5;
-  margin-top: 0px;
+  margin: 0px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  height: 100vh;
 }
 main {
   padding-top: 30px;
@@ -92,7 +101,7 @@ main {
 
 .question {
   display: block;
-  width: 80%;
+  width: 100%;
   align-self: center;
 }
 
@@ -128,24 +137,23 @@ hr {
   align-self: center;
 }
 .qCard {
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
   justify-content: start;
-  min-height: 72px;
+  /* min-height: 72px; */
+  padding: 16px;
   border-radius: 20px;
   /* border: 2px solid #634ba5; */
   border: 2px solid #c9c9c9;
   align-self: center;
   box-shadow: 0 0 0 #000, 0 0 0 #000, 0 0 0 #000, 0 0 1px #000;
-
-  width: 80%;
+  width: 100%;
 }
 
 #question-content {
   display: flex;
   flex-direction: column;
-  height: 400px;
-  justify-content: space-around;
 }
 
 .answer-option1 {
@@ -175,18 +183,16 @@ hr {
 input[type="radio"],
 input[type="checkbox"] {
   accent-color: #634ba5;
-  margin: 20px;
+  margin: 12px;
+  align-self: self-start;
 }
 
 label {
   font-family: Segoe UI;
   font-style: normal;
+  margin-left: 16px;
   font-weight: 600;
   font-size: 14px;
   line-height: 20px;
   color: #1b2a4e;
-
-  /* Inside auto layout */
-
-  padding: 0px 16px;
 }

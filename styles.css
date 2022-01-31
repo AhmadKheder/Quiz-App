@@ -1,6 +1,8 @@
-.body {
-  background: #e5e5e5;
-  margin-top: 0px;
+body {
+  background: #fff;
+  height: 100%;
+
+  margin: 0px;
   font-family: Segoe UI;
   font-style: normal;
 }
@@ -108,11 +110,8 @@ main {
   font-weight: 900;
   font-size: 11px;
   line-height: 16px;
-  /* identical to box height, or 145% */
 
   text-transform: uppercase;
-
-  /* Accent Colors/Purple/P500 */
 
   color: #5a4496;
 

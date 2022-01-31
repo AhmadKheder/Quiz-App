@@ -3,11 +3,17 @@ footer {
   width: 100%;
   bottom: 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   border-top: 2px solid rgba(16, 24, 64, 0.12);
   height: 120px;
-  left: 0px;
+  /* left: 0px; */
   background: #ffffff;
+  padding: 28px 0px;
+}
+.footer-content-container {
+  display: flex;
+  justify-content: space-between;
+  width: 800px;
 }
 footer button {
   display: flex;
@@ -34,7 +40,7 @@ footer button {
   flex: none;
   order: 0;
   flex-grow: 0;
-  margin: 0px 10px;
+  /* margin: 0px 10px; */
   border-style: none;
 }
 
@@ -47,9 +53,9 @@ footer button {
   left: 0px;
   top: 0px;
   right: 2px;
-
   background: #f7f5fc;
   border-radius: 16px;
+  margin-right: 8px;
 }
 
 .timer-icon {
