@@ -276,7 +276,7 @@ function popUpScore(percentageRusult) {
   const goodMarkImoji = `  <div class="gradeContainer">
 <h1 class="grade">you got ${percentageRusult}%</h1>
 <a  title="Go to Home Page" href="./index.html">
-<img class="imojiImg" src="./images/smiling-face.png" alt="smiling-face.png">
+<img class="imojiImg" src="../images/smiling-face.png" alt="smiling-face.png">
 
 </a>
 </div>`;
@@ -284,7 +284,7 @@ function popUpScore(percentageRusult) {
   const lowMarkImoji = `  <div class="gradeContainer">
 <h1 class="grade">you got ${percentageRusult}%</h1>
 <a   title="Go to Home Page" href="./index.html">
-<img class="imojiImg" src="./images/sadImoji.png" alt="sadImoji.png">
+<img class="imojiImg" src="../images/sadImoji.png" alt="sadImoji.png">
 
 
 
