@@ -108,6 +108,8 @@ const answerHandler = () => {
       questionId: currentQuestion.questionId,
       answers: answerOptions
         .map((x) => {
+          console.log(x);
+
           if (x.checked) {
             return x.value;
           }
@@ -142,12 +144,10 @@ function renderHtmlContentByQuestionType(question) {
         .map((optionTitle, index) => {
           questionText.innerHTML = question.question;
 
-          return `<div class="answerOption qCard">
+          return `<div  class="answerOption qCard">
                     <input type='${
                       question.inputType
-                    }' name="Answer" id="option-${
-            index + 1
-          }" value='${optionTitle}' />
+                    }' name="Answer" id='${index}' value='${optionTitle}' />
                     <label for=${specifyLabelForString(
                       question.inputType,
                       index
@@ -169,6 +169,7 @@ function renderHtmlContentByQuestionType(question) {
   }
   questionContent.innerHTML = result;
 }
+
 function specifyLabelForString(type, index) {
   switch (type) {
     case "radio":
