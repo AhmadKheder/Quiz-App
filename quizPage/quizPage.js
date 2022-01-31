@@ -69,6 +69,30 @@ const questions = [
   },
 ];
 
+function home() {
+  window.location.href = "/";
+}
+const inputContainers = document.getElementsByClassName("answerOption ");
+function colorUncheckRadios() {
+  const answerOptions = Array.from(document.getElementsByName("Answer"));
+  answerOptions.forEach((radio) => {
+    if (!radio.checked) {
+      radio.parentElement.style.borderColor = "#c9c9c9";
+    }
+  });
+}
+function checkInput(div, input) {
+  const singleSelectedDiv = document.getElementById(`${div}`);
+  const singleSelectedInput = document.getElementById(`${input}`);
+  if (singleSelectedInput.checked) {
+    singleSelectedDiv.style.borderColor = "#c9c9c9";
+    singleSelectedInput.checked = false;
+  } else {
+    singleSelectedDiv.style.borderColor = "#634ba5";
+    singleSelectedInput.checked = true;
+    colorUncheckRadios();
+  }
+}
 const questionsLength = Object.keys(questions).length;
 const mainTag = document.getElementById("main");
 const timetxt = document.getElementById("time");
@@ -111,6 +135,7 @@ const answerHandler = () => {
           console.log(x);
 
           if (x.checked) {
+            // x.style.borderColor.parent() = "#634ba5";
             return x.value;
           }
         })
@@ -144,7 +169,7 @@ function renderHtmlContentByQuestionType(question) {
         .map((optionTitle, index) => {
           questionText.innerHTML = question.question;
 
-          return `<div  class="answerOption qCard">
+          return `<div  onClick="checkInput('${index}div',${index})" id="${index}div" class="answerOption qCard">
                     <input type='${
                       question.inputType
                     }' name="Answer" id='${index}' value='${optionTitle}' />
@@ -197,7 +222,7 @@ const examResult = () => {
   let gradeResult = 0;
   let rightAnswersTotalCount = 0;
   totoalStudentAnswer.map((x, idx) => {
-    const studentAnswe = x.answers;
+    // const studentAnswe = x.answers;
     let correctAnswerIds = questions[idx].rightAnswers;
     rightAnswersTotalCount += correctAnswerIds.length;
     let studentAnswer = Array.from(x.answers);
@@ -280,7 +305,8 @@ const countDown = setInterval(function () {
 const decreaser = () => {
   const minutes = Math.floor(seconds / 60);
   const remainSeconds = seconds % 60;
-
+  const timerIcon = `          <i class="fas fa-stopwatch timer-icon"></i>
+`;
   if (seconds < 10 && minutes < 10) {
     timetxt.innerHTML = `   0${minutes} : 0${remainSeconds}`;
   } else if (minutes < 10) {
