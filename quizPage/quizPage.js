@@ -155,6 +155,7 @@ const answerHandler = () => {
 };
 
 function renderHtmlContentByQuestionType(question) {
+  console.log("HIIII");
   increaseProgressBypercentage(currentQuestionIndex);
   // console.log("currentQuestionIndex", currentQuestionIndex);
   const questionText = document.getElementById("question");
