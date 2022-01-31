@@ -70,7 +70,7 @@ const questions = [
 ];
 
 function home() {
-  window.location.href = "../index.html";
+  window.location.href = "https://ahmadkheder.github.io/Quiz-App/";
 }
 const inputContainers = document.getElementsByClassName("answerOption ");
 function colorUncheckRadios() {
@@ -267,7 +267,7 @@ const testScore = (totalGrade, studentGrade) => {
 function popUpScore(percentageRusult) {
   const fullMarkImoji = `  <div class="gradeContainer">
   <h1 class="grade">you got ${percentageRusult}%</h1>
-  <a title="Go to Home Page" href="./index.html">
+  <a title="Go to Home Page" href="../index.html">
   <div class="emoje smile"></div>
   <div class="eye"></div>
   <div class="eye eye1"></div>
