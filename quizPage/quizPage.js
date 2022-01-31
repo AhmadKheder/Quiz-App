@@ -70,7 +70,7 @@ const questions = [
 ];
 
 function home() {
-  window.location.href = "./";
+  window.location.href = "../index.html";
 }
 const inputContainers = document.getElementsByClassName("answerOption ");
 function colorUncheckRadios() {
