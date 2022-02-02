@@ -60,9 +60,11 @@ const questions = [
         inputType: "text",
     },
 ];
+let totoalStudentAnswer = [];
 function home() {
     window.location.href = "https://ahmadkheder.github.io/Quiz-App/";
 }
+const inputContainers = document.getElementsByClassName("answerOption ");
 function colorUncheckRadios() {
     const answerOptions = Array.from(document.querySelectorAll("input"));
     answerOptions.forEach((radio) => {
@@ -91,7 +93,6 @@ const timetxt = document.getElementById("time");
 let seconds = 600;
 const progressBar = document.getElementById("acheived");
 const nextBtn = document.querySelector("#next-btn");
-let totoalStudentAnswer = [];
 let currentQuestionIndex = 0;
 const nextQuestionHandler = () => {
     answerHandler();
@@ -114,17 +115,16 @@ const answerHandler = () => {
     const currentQuestion = questions[currentQuestionIndex];
     if (currentQuestion.inputType === "checkbox" ||
         currentQuestion.inputType === "radio") {
-        const answerValue = {
+        let answerValue = {
             questionId: currentQuestion.questionId,
             answers: answerOptions
                 .map((x) => {
-                console.log(x);
                 if (x.checked) {
                     // x.style.borderColor.parent() = "#634ba5";
                     return x.value;
                 }
             })
-                .filter((item) => item),
+                .filter((item) => item)
         };
         totoalStudentAnswer = [...totoalStudentAnswer, answerValue];
     }
@@ -194,28 +194,26 @@ const unCheckInputs = () => {
 const examResult = () => {
     let gradeResult = 0;
     let rightAnswersTotalCount = 0;
+    console.log('totoalStudentAnswer', totoalStudentAnswer);
     totoalStudentAnswer.map((x, idx) => {
         let correctAnswerIds = (questions[idx].rightAnswers);
         rightAnswersTotalCount += correctAnswerIds.length;
-        let studentAnswer = Array.from(x.answers);
+        let studentAnswer = x.answers;
         switch (questions[idx].inputType) {
             case "radio":
             case "checkbox":
                 let optionsListObj = (questions[idx].options);
-                let optionsListArr = [];
-                for (let op in optionsListObj) {
-                    optionsListArr.push(op);
-                }
                 correctAnswerIds.forEach((val, idx) => {
-                    if (studentAnswer.includes(optionsListArr[val])) {
+                    if (studentAnswer.includes(optionsListObj[val])) {
                         gradeResult++;
                     }
                     else {
+                        console.log("Not");
                     }
                     x.answers;
                 });
             case "text":
-                if (correctAnswerIds.toString() == x.answers) {
+                if (correctAnswerIds == x.answers) {
                     gradeResult++;
                 }
                 break;

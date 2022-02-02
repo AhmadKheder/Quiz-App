@@ -82,11 +82,16 @@ const questions = [
     rightAnswers: ["Hello World"],
     inputType: "text",
   },
-];
+]as QuestionFormat[];
+
+type AnswerType  ={questionId:string, answers:string[]};
+let totoalStudentAnswer : AnswerType[] = [] ;
 
 function home() {
   window.location.href = "https://ahmadkheder.github.io/Quiz-App/";
 }
+const inputContainers = document.getElementsByClassName("answerOption ");
+
 function colorUncheckRadios() :void{
   const answerOptions = Array.from(document.querySelectorAll("input")!);
   answerOptions.forEach((radio) => {
@@ -96,6 +101,7 @@ function colorUncheckRadios() :void{
     }
   });
 }
+
 function checkInput(div:string, input:number):void {
   const singleSelectedDiv  = document.getElementById(`${div}`)!;
   const singleSelectedInput  = document.getElementById(`${input}`) as HTMLInputElement;
@@ -114,7 +120,6 @@ const timetxt = document.getElementById("time")!;
 let seconds = 600;
 const progressBar = document.getElementById("acheived")!;
 const nextBtn = document.querySelector("#next-btn") as HTMLButtonElement;
-let totoalStudentAnswer : object[] = [];
 
 let currentQuestionIndex :number= 0;
 const nextQuestionHandler = () => {
@@ -143,21 +148,19 @@ const answerHandler = () => {
     currentQuestion.inputType === "checkbox" ||
     currentQuestion.inputType === "radio"
   ) {
-    const answerValue = {
+    let answerValue= {
       questionId: currentQuestion.questionId,
       answers : answerOptions
         .map((x) => {
-          console.log(x);
         
           if ((x as HTMLInputElement).checked) {
             // x.style.borderColor.parent() = "#634ba5";
             return (x as HTMLInputElement).value;
           }
         })
-        .filter((item) => item),
+        .filter((item) => item)
     };
-
-    totoalStudentAnswer = [...totoalStudentAnswer, answerValue];
+    totoalStudentAnswer = [...totoalStudentAnswer, answerValue  as AnswerType];
   }
 
   if (currentQuestion.inputType === "text") {
@@ -165,7 +168,7 @@ const answerHandler = () => {
       questionId: currentQuestion.questionId,
       answers: (answerOptions[0] as HTMLInputElement).value,
     };
-    totoalStudentAnswer  = [...totoalStudentAnswer, answerValue];
+    totoalStudentAnswer  = [...totoalStudentAnswer, answerValue as any];
   }
 };
 
@@ -236,34 +239,37 @@ const unCheckInputs = () => {
     }
   });
 };
-
+type optionsListObj ={
+  option1: string;
+  option2: string;
+  option3: string;
+  option4: string;
+};
 const examResult = () => {
   let gradeResult = 0;
   let rightAnswersTotalCount : number = 0;
-  totoalStudentAnswer.map((x:any, idx) => {
-    let correctAnswerIds : String[] = (questions[idx].rightAnswers) as String[];
+  console.log('totoalStudentAnswer',totoalStudentAnswer);
+  totoalStudentAnswer.map((x:AnswerType, idx:number) => {
+    let correctAnswerIds : String[] = (questions[idx].rightAnswers) ;
     rightAnswersTotalCount += correctAnswerIds.length;
     
-    let studentAnswer: String[] = Array.from(x.answers) as String[];
+    let studentAnswer: String[] = x.answers ;
 
     switch (questions[idx].inputType) {
       case "radio":
       case "checkbox":
-        let optionsListObj  : Object= (questions[idx].options)as Object;
-        let optionsListArr: String[] = [];
-        for (let op in optionsListObj) {
-          optionsListArr.push(op);
-        }
 
-        correctAnswerIds.forEach((val:any, idx) => {
-            if (studentAnswer.includes(optionsListArr[val])) {
+        let optionsListObj :optionsListObj = (questions[idx].options);
+        correctAnswerIds.forEach((val:String, idx) => {
+          if (studentAnswer.includes(optionsListObj[val])) {
             gradeResult++;
           } else {
+            console.log("Not");
           }
           x.answers;
         });
       case "text":
-        if (correctAnswerIds.toString() == x.answers) {
+        if (correctAnswerIds == x.answers) {
           gradeResult++;
         }
         break;
